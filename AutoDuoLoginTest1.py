@@ -14,18 +14,28 @@ if  Cur_url == 'https://caneid.miami.edu/cas/login?service=https%3A%2F%2Fcaneid.
     UserName = browser.find_element_by_css_selector('#nameInitialFocus')
     UserName.send_keys('m.martinez28')
     PassWord = browser.find_element_by_css_selector('#wrap > div.container > div > form > input:nth-child(7)')
-    PassWord.send_keys('4r5ry7y7M$#')
+    PassWord.send_keys('Password')
     
     elem1 = browser.find_element_by_css_selector('#wrap > div.container > div > form > button')
     elem1.click()
 else:
     print('error')
     
-#browser.get(browser.current_url)
+# Browser is redirected to Duologin 'https://caneid.miami.edu/idp/Authn/MCB/RemoteUser'
+# Pages take 1-2 seconds to load for authentication.
+# Need to click "Send me a Push" button.
+
+
+WebDriverWait(browser, 10)
+elem2 = browser.find_element_by_css_selector('#login-form > fieldset:nth-child(11) > div.row-label.push-label > button')
+elem2.click()
+
+# Error I receive:
+# selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"#login-form > fieldset:nth-child(11) > div.row-label.push-label > button"}
+
+# Alternate Code:
+# Documentation: http://selenium-python.readthedocs.io/waits.html
 #wait = WebDriverWait(browser, 10)
 #element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,"#login-form > fieldset:nth-child(11) > div.row-label.push-label > button")))
 #print('found?')
 #element.click()
-WebDriverWait(browser, 15)
-elem2 = browser.find_element_by_css_selector('#login-form > fieldset:nth-child(11) > div.row-label.push-label > button')
-elem2.click()
